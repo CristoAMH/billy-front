@@ -1,36 +1,41 @@
 <template>
     <div id="login">
         <h1>Login</h1>
-        <input type="text" name="username" v-model="input.username" placeholder="Username" />
+        <input type="text" name="email" v-model="input.email" placeholder="Username" />
         <input type="password" name="password" v-model="input.password" placeholder="Password" />
-        <button type="button" v-on:click="login()">Login</button>
+        <a class="actionButton" v-on:click="login()">Login</a>
     </div>
 </template>
 
 <script>
+
+    import axios from 'axios';
+
     export default {
         name: 'Login',
         data() {
             return {
                 input: {
-                    username: "",
-                    password: ""
-                }
+                    email: "",
+                    password: "",
+                    errors: "",
+                },
             }
         },
         methods: {
             login() {
-                if(this.input.username != "" && this.input.password != "") {
-                    if(this.input.username == this.$parent.mockAccount.username && this.input.password == this.$parent.mockAccount.password) {
+                let prueba = axios.post('http://localhost:4000/users/login', { 'email': this.input.email, 'password':this.input.password })
+                .then(res => {
+                    if (res.status == 200) {
                         this.$emit("authenticated", true);
-                        this.$router.replace({ name: "secure" });
-                    } else {
-                        console.log("The username and / or password is incorrect");
+                        this.$router.replace({name:"secure", params: { nombre: res.data.nombre, id: res.data.id, token: res.data.token, activao:'' }})
                     }
-                } else {
-                    console.log("A username and password must be present");
-                }
-            }
+                })
+                .catch(function (error) {
+                    alert("Correo o contraseña invalidas")
+                    console.log(error);
+                });
+            },
         }
     }
 </script>

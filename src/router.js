@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import LoginComponent from "./views/login.vue"
 import SecureComponent from "./views/secure.vue"
+import InscriptionComponent from "./views/inscription.vue"
 
 Vue.use(Router)
 
@@ -12,8 +13,13 @@ export default new Router({
     {
         path: '/',
         redirect: {
-            name: "login"
+            name: "inscription"
         }
+    },
+    {
+        path: "/inscription",
+        name: "inscription",
+        component: InscriptionComponent
     },
     {
         path: "/login",

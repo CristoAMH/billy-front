@@ -1,9 +1,11 @@
 <template>
     <div id="app">
         <div id="nav">
+            <router-link v-if="authenticated == false" to="/inscription">Suscribirse</router-link><br><br>
+            <router-link v-if="authenticated == false" to="/login">Login</router-link>
             <router-link v-if="authenticated" to="/login" v-on:click.native="logout()" replace>Logout</router-link>
         </div>
-        <router-view @authenticated="setAuthenticated" />
+        <router-view @authenticated="setAuthenticated"/>
     </div>
 </template>
 
@@ -13,15 +15,14 @@
         data() {
             return {
                 authenticated: false,
-                mockAccount: {
-                    username: "cristo",
-                    password: "123"
-                }
+                token: "",
+                id:"",
+                nombre:"",
             }
         },
         mounted() {
             if(!this.authenticated) {
-                this.$router.replace({ name: "login" });
+                this.$router.replace({ name: "inscription" });
             }
         },
         methods: {
@@ -36,6 +37,7 @@
 </script>
 
 <style>
+
     body {
         background-color: #F0F0F0;
     }
