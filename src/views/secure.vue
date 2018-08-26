@@ -1,10 +1,10 @@
 <template>
     <div id="secure">
         <UserHeader></UserHeader>
-        <button @click="component='UserDashboard'">User Dashboard</button>
-        <button @click="component='UserSettings'">User Settings</button>
+        <a @click="component='UserDashboard'">User Dashboard</a>
+        <a @click="component='UserSettings'">Add keys</a>
+        <br><br>
         <component :is="component"></component>
-
     </div>
 </template>
 
@@ -15,11 +15,13 @@ import UserDashboard from '@/components/UserDashboard'
 
     export default {
         name: 'Secure',
+        props: ['nombre'],
         data()  {
             return {
                 component : "UserDashboard"
             }
         },
+
         components : {
             UserHeader,
             UserSettings,

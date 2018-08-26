@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1>Hello</h1>
+        <h1>{{nombre}}</h1>
     </div>
     
 </template>
@@ -9,7 +9,9 @@
     export default {
         name: 'Secure',
         data() {
-            return {};
+            return {
+                nombre: this.$route.params.nombre
+            };
         },
     }
 </script>
